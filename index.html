@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Simulador TSJE</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #e5e5e5;
+}
+
+/* HEADER */
+.header {
+  background: #2c2c2c;
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* TITULO */
+.titulo {
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* CONTENEDOR */
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
+}
+
+/* GRID 4 columnas */
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+  padding: 10px;
+}
+
+/* TARJETAS */
+.tarjeta {
+  background: #f2f2f2;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tarjeta.selected {
+  border-color: red;
+  background: #ffe6e6;
+}
+
+/* CONTENIDO */
+.fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.info {
+  text-align: center;
+  font-size: 18px;
+}
+
+.lista {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.nombre {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.blanco {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* BOTONES */
+.boton {
+  margin: 20px;
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background: gray;
+  color: white;
+}
+
+.boton:hover {
+  background: #444;
+}
+
+/* ===== 👇 PEGASTE ESTO 👇 ===== */
+#pantalla4 > div > div:nth-child(1),
+#pantalla4 > div > div:nth-child(2){
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#pantalla4 img {
+  display: block;
+  margin: 15px auto;
+}
+
+#pantalla4 .boton {
+  display: block;
+  margin: 10px auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================== PANTALLA 1 ================== -->
+<div id="pantalla1">
+
+<div class="header">
+  Elección: ANR | Cordillera | San Bernardino
+</div>
+
+<div class="titulo">
+  Candidatos a INTENDENTE MUNICIPAL
+</div>
+
+<div class="contenedor">
+
+  <div class="tarjeta" onclick="irAJunta('Emigdio Ruiz Diaz')">
+    <h3>HONOR COLORADO E</h3>
+    <div class="fila">
+      <img class="img" src="candidato1.png">
+      <div class="info">LISTA<br><div class="lista">2E</div>MHC</div>
+    </div>
+    <div class="nombre">Emigdio Ruiz Diaz</div>
+  </div>
+
+  <div class="tarjeta" onclick="irAJunta('Oscar Franco')">
+    <h3>HONOR COLORADO F</h3>
+    <div class="fila">
+      <img class="img" src="candidato2.png">
+      <div class="info">LISTA<br><div class="lista">2F</div>MHC</div>
+    </div>
+    <div class="nombre">Oscar Franco</div>
+  </div>
+
+  <div class="tarjeta" onclick="irAJunta('Carolina')">
+    <h3>COLORADO AÑETETE</h3>
+    <div class="fila">
+      <img class="img" src="candidato3.png">
+      <div class="info">LISTA<br><div class="lista">6</div>MCA</div>
+    </div>
+    <div class="nombre">Carolina</div>
+  </div>
+
+  <div class="tarjeta blanco" onclick="irAJunta('Voto en blanco')">
+    VOTO EN BLANCO
+  </div>
+
+</div>
+
+</div>
+
+<!-- ================== PANTALLA 2 ================== -->
+<div id="pantalla2" style="display:none">
+
+<div class="header">
+  Elección: ANR | Cordillera | San Bernardino
+</div>
+
+<div class="titulo">
+  Listas participantes al cargo de JUNTA MUNICIPAL
+</div>
+
+<div class="contenedor">
+
+  <div class="tarjeta" onclick="seleccionarLista(this,'2B')">
+    <h2>LISTA 2B</h2>
+    <p>HONOR COLORADO B</p>
+    <p>MHC</p>
+  </div>
+
+  <div class="tarjeta" onclick="seleccionarLista(this,'2D')">
+    <h2>LISTA 2D</h2>
+    <p>HONOR COLORADO D</p>
+    <p>MHC</p>
+  </div>
+
+  <div class="tarjeta" onclick="seleccionarLista(this,'2R')">
+    <h2>LISTA 2R</h2>
+    <p>HONOR COLORADO R</p>
+    <p>MHC</p>
+  </div>
+
+  <div class="tarjeta" onclick="seleccionarLista(this,'2S')">
+    <h2>LISTA 2S</h2>
+    <p>HONOR COLORADO S</p>
+    <p>MHC</p>
+  </div>
+
+  <div class="tarjeta" onclick="seleccionarLista(this,'6')">
+    <h2>LISTA 6</h2>
+    <p>COLORADO AÑETETE</p>
+    <p>MCA</p>
+  </div>
+
+  <div class="tarjeta" onclick="irLista22()">
+    <h2>LISTA 22</h2>
+    <p>INNOVACION COLORADA</p>
+    <p>MIC</p>
+  </div>
+
+  <div class="tarjeta blanco" onclick="seleccionarLista(this,'blanco')">
+    VOTO EN BLANCO
+  </div>
+
+</div>
+
+<button class="boton" onclick="volverInicio()">⬅ Volver</button>
+
+</div>
+
+<!-- ================== PANTALLA 3 ================== -->
+<div id="pantalla3" style="display:none">
+
+<div class="titulo">
+  Lista 22 - INNOVACION COLORADA
+</div>
+
+<div class="grid4">
+
+  <div class="tarjeta"><img class="img" src="1.png"><div class="nombre">Doctor Rodrigo Aguero</div></div>
+
+  <!-- SOLO ESTE TIENE ACCION -->
+  <div class="tarjeta" onclick="seleccionarCandidato('Derlis Chena Opcion 2')">
+    <img class="img" src="lista 22.jpeg">
+    <div class="nombre">Derlis Chena Opcion 2</div>
+  </div>
+
+  <div class="tarjeta"><img class="img" src="3.png"><div class="nombre">Bily Caballero</div></div>
+  <div class="tarjeta"><img class="img" src="4.png"><div class="nombre">Elias Sanchez</div></div>
+
+</div>
+
+<button class="boton" onclick="volverLista()">⬅ Volver</button>
+
+</div>
+
+<!-- ================== PANTALLA 4 CORREGIDA ================== -->
+<div id="pantalla4" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10;">
+
+<div style="display:flex; height:100vh;">
+
+  <!-- INTENDENTE -->
+  <div style="flex:1; background:#eee; text-align:center; padding:20px;">
+    <h2>INTENDENTE MUNICIPAL</h2>
+
+    <h3 id="resIntendente"></h3>
+    <img id="imgIntendente" style="width:120px; margin:10px 0;">
+
+    <button class="boton" onclick="volverInicio()">Modificar</button>
+  </div>
+
+  <!-- JUNTA -->
+  <div style="flex:1; background:#eee; text-align:center; padding:20px;">
+    <h2>JUNTA MUNICIPAL</h2>
+    <h3>LISTA 22</h3>
+
+    <h3 id="resCandidato"></h3>
+    <img id="imgCandidato" style="width:120px; margin:10px 0;">
+
+    <button class="boton" onclick="volverLista()">Modificar</button>
+  </div>
+
+  <!-- LATERAL -->
+  <div style="width:200px; display:flex; flex-direction:column;">
+    <button style="flex:1; background:orange; color:white;" onclick="reiniciar()">🔄 Reiniciar</button>
+    <button style="flex:1; background:green; color:white;">🖨️ Imprimir</button>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+let seleccionIntendente = null;
+let seleccionJunta = null;
+
+function irAJunta(nombre) {
+  seleccionIntendente = nombre;
+  document.getElementById("pantalla1").style.display = "none";
+  document.getElementById("pantalla2").style.display = "block";
+}
+
+function volverInicio() {
+  document.getElementById("pantalla2").style.display = "none";
+  document.getElementById("pantalla1").style.display = "block";
+}
+
+function seleccionarLista(el, valor) {
+  document.querySelectorAll("#pantalla2 .tarjeta").forEach(t => t.classList.remove("selected"));
+  el.classList.add("selected");
+  seleccionJunta = valor;
+}
+
+function irLista22() {
+  document.getElementById("pantalla2").style.display = "none";
+  document.getElementById("pantalla3").style.display = "block";
+}
+
+function volverLista() {
+  document.getElementById("pantalla3").style.display = "none";
+  document.getElementById("pantalla2").style.display = "block";
+}
+
+/* AGREGADO */
+function seleccionarCandidato(nombre) {
+  document.getElementById("pantalla3").style.display = "none";
+  document.getElementById("pantalla4").style.display = "block";
+
+  document.getElementById("resIntendente").innerText = seleccionIntendente;
+  document.getElementById("resCandidato").innerText = nombre;
+}
+
+function reiniciar() {
+  location.reload();
+}
+/* ===== CAPTURA Y MOSTRAR IMAGENES (SIN TOCAR TU LOGICA) ===== */
+
+let imgIntendente = "";
+let imgCandidato = "";
+
+/* capturar imagen del intendente */
+document.addEventListener("click", function(e){
+  const t = e.target.closest("#pantalla1 .tarjeta");
+  if(t){
+    const img = t.querySelector("img");
+    if(img) imgIntendente = img.src;
+  }
+});
+
+/* capturar imagen del candidato */
+document.addEventListener("click", function(e){
+  const t = e.target.closest("#pantalla3 .tarjeta");
+  if(t){
+    const img = t.querySelector("img");
+    if(img) imgCandidato = img.src;
+  }
+});
+
+/* enganchar tu función sin modificarla */
+const originalSeleccionar = seleccionarCandidato;
+
+seleccionarCandidato = function(nombre){
+  originalSeleccionar(nombre);
+
+  setTimeout(() => {
+    const img1 = document.getElementById("imgIntendente");
+    const img2 = document.getElementById("imgCandidato");
+
+    if(img1 && imgIntendente) img1.src = imgIntendente;
+    if(img2 && imgCandidato) img2.src = imgCandidato;
+  }, 50);
+};
+</script>
+
+</body>
+</html>
